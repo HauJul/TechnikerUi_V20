@@ -15,8 +15,9 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QAbstractButton, QApplication, QDialog, QDialogButtonBox,
-    QLabel, QLineEdit, QSizePolicy, QWidget)
+from PySide6.QtWidgets import (QAbstractButton, QApplication, QComboBox, QDialog,
+    QDialogButtonBox, QLabel, QLineEdit, QSizePolicy,
+    QWidget)
 
 class Ui_NewDialog(object):
     def setupUi(self, NewDialog):
@@ -36,18 +37,25 @@ class Ui_NewDialog(object):
         self.btnbox.setStandardButtons(QDialogButtonBox.Cancel|QDialogButtonBox.Ok)
         self.lbl_new = QLabel(self.widget)
         self.lbl_new.setObjectName(u"lbl_new")
-        self.lbl_new.setGeometry(QRect(20, 40, 331, 121))
+        self.lbl_new.setGeometry(QRect(20, 70, 331, 121))
         font = QFont()
         font.setPointSize(20)
         self.lbl_new.setFont(font)
         self.lbl_new.setWordWrap(True)
         self.txt_new = QLineEdit(self.widget)
         self.txt_new.setObjectName(u"txt_new")
-        self.txt_new.setGeometry(QRect(20, 170, 311, 51))
+        self.txt_new.setGeometry(QRect(20, 200, 311, 51))
         self.txt_new.setFont(font)
         self.txt_new.setInputMethodHints(Qt.ImhNone)
         self.txt_new.setMaxLength(8)
         self.txt_new.setEchoMode(QLineEdit.Normal)
+        self.comboBox = QComboBox(self.widget)
+        self.comboBox.addItem("")
+        self.comboBox.addItem("")
+        self.comboBox.addItem("")
+        self.comboBox.setObjectName(u"comboBox")
+        self.comboBox.setGeometry(QRect(20, 20, 311, 41))
+        self.comboBox.setFont(font)
 
         self.retranslateUi(NewDialog)
         self.btnbox.accepted.connect(NewDialog.accept)
@@ -60,5 +68,9 @@ class Ui_NewDialog(object):
         NewDialog.setWindowTitle(QCoreApplication.translate("NewDialog", u"Dialog", None))
         self.lbl_new.setText(QCoreApplication.translate("NewDialog", u"Material-/Program-/Einsatznummer eingeben oder scannen:", None))
         self.txt_new.setText("")
+        self.comboBox.setItemText(0, QCoreApplication.translate("NewDialog", u"Neues Produkt", None))
+        self.comboBox.setItemText(1, QCoreApplication.translate("NewDialog", u"Neuer Einsatz", None))
+        self.comboBox.setItemText(2, QCoreApplication.translate("NewDialog", u"Neues Programm", None))
+
     # retranslateUi
 

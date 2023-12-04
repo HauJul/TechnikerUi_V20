@@ -63,20 +63,11 @@ class SettingWindow(QMainWindow):
         self.ui.btn_close.clicked.connect(self.close)
         self.ui.btn_save.clicked.connect(self.save_all)
         self.ui.btn_delete.clicked.connect(self.delete_row)
-        self.ui.btn_new_prod.clicked.connect(self.new_item)
-        self.ui.btn_new_tool.clicked.connect(self.new_item)
-        self.ui.btn_new_prog.clicked.connect(self.new_item)
+        self.ui.btn_new.clicked.connect(self.new_item)
 
     def new_item(self):
         new_dialog = NewDialog()
-        new_item = QTableWidgetItem()
-        if new_dialog.exec() == QDialog.accepted:
-            new_item.setText("1")
-            self.ui.tbl_prog.insertRow(0)
-            self.ui.tbl_prog.setVerticalHeaderItem(0, new_item)
-            print("Hallo")
-        else:
-            print("Nicht Hallo")
+        new_dialog.exec()
 
     def read_csv_file(self, filepath, table):
         file = open(filepath, 'r')
@@ -156,7 +147,18 @@ class NewDialog(QDialog):
         self.ui.btnbox.button(QDialogButtonBox.Ok).clicked.connect(self.handle_new)
 
     def handle_new(self):
-        self.accept()
+        new_item = QTableWidgetItem()
+        new_item.setText(self.ui.txt_new.text())
+        match self.ui.comboBox.currentText():
+            case "Neues Produkt":
+                setting_window.ui.tbl_prod.insertRow(setting_window.ui.tbl_prod.rowCount())
+                setting_window.ui.tbl_prod.setVerticalHeaderItem(setting_window.ui.tbl_prod.rowCount()-1, new_item)
+            case "Neuer Einsatz":
+                setting_window.ui.tbl_tool.insertRow(setting_window.ui.tbl_tool.rowCount())
+                setting_window.ui.tbl_tool.setVerticalHeaderItem(setting_window.ui.tbl_tool.rowCount()-1, new_item)
+            case "Neues Programm":
+                setting_window.ui.tbl_prog.insertRow(setting_window.ui.tbl_prog.rowCount())
+                setting_window.ui.tbl_prog.setVerticalHeaderItem(setting_window.ui.tbl_prog.rowCount()-1, new_item)
 
 def check_tool():
     if toolbox.get_tool() != product.get_toolno(cvir.step):
