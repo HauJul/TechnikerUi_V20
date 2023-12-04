@@ -22,6 +22,9 @@ class MainWindow(QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
+        self.ui.lbl_io.hide()
+        self.ui.lbl_nio.hide()
+
         self.ui.sb_artno.valueChanged.connect(self.product_change)
         self.ui.btn_skip.clicked.connect(next_step)
         self.ui.btn_exit.clicked.connect(self.product_change)
@@ -39,9 +42,7 @@ class MainWindow(QMainWindow):
 
     def open_settings(self):
         password_dialog = PasswordDialog()
-        if password_dialog.exec() == QDialog.accepted:
-            setting_window = SettingWindow()
-            setting_window.show()
+        password_dialog.exec()
 
     def false_tool(self):
         self.ui.lbl_false_tool.show()
@@ -58,9 +59,7 @@ class SettingWindow(QMainWindow):
         self.ui = Ui_SettingWindow()
         self.ui.setupUi(self)
         #self.setWindowFlags(WindowCloseButtonHint)
-        self.read_csv_file("Lists/Produktliste_V03.csv", self.ui.tbl_prod)
-        self.read_csv_file("Lists/Toolliste_V03.csv", self.ui.tbl_tool)
-        self.read_csv_file("Lists/Programmliste_V03.csv", self.ui.tbl_prog)
+        self.read_all()
         self.ui.btn_close.clicked.connect(self.close)
         self.ui.btn_save.clicked.connect(self.save_all)
         self.ui.btn_delete.clicked.connect(self.delete_row)
@@ -80,7 +79,9 @@ class SettingWindow(QMainWindow):
             print("Nicht Hallo")
 
     def read_csv_file(self, filepath, table):
-        df = pd.read_csv(filepath, delimiter=";", index_col=0)
+        file = open(filepath, 'r')
+        df = pd.read_csv(file, delimiter=";", index_col=0)
+        file.close()
         headers = list(df)
         index = df.index.tolist()
         table.setRowCount(df.shape[0])
@@ -92,6 +93,10 @@ class SettingWindow(QMainWindow):
         for row in range(df.shape[0]):
             for col in range(df.shape[1]):
                 table.setItem(row, col, QTableWidgetItem(str(df_array[row, col])))
+    def read_all(self):
+        self.read_csv_file("Lists/Produktliste_V03.csv", self.ui.tbl_prod)
+        self.read_csv_file("Lists/Toolliste_V03.csv", self.ui.tbl_tool)
+        self.read_csv_file("Lists/Programmliste_V03.csv", self.ui.tbl_prog)
 
     def save_csv_file(self, filepath, table):
         headers = []
@@ -136,8 +141,8 @@ class PasswordDialog(QDialog):
 
     def handleLogin(self):
         if self.ui.txt_password.text() == '1000':
+            setting_window.read_all()
             setting_window.show()
-            self.accept()
         else:
             QMessageBox.warning(
                 self, 'Error', 'Falsches Servicepassword')
@@ -179,26 +184,26 @@ def next_step():
         cvir.step = 1
     update_process(cvir.step)
 
-#Start Application
+# Start Application
 app = QApplication(sys.argv)
-#Start MainWindoww
+# Start MainWindow
 window = MainWindow()
 window.show()
 setting_window = SettingWindow()
-#Interupts
-#Toolbox - Tool changed
+# Interupt
+# Toolbox - Tool changed
 toolbox.outBit0.when_activated = check_tool
 toolbox.outBit1.when_activated = check_tool
 toolbox.outBit2.when_activated = check_tool
-#CVIR - Statusmeldung
+# CVIR - Statusmeldung
 cvir.__outIO.when_activated = next_step
 cvir.__outIO.when_deactivated = window.ui.lbl_io.hide
 cvir.__outNIO.when_activated = window.ui.lbl_nio.show
 cvir.__outNIO.when_deactivated = window.ui.lbl_nio.hide
-#Bedienelement
+# Bedienelement
 cvir.__outSF1.when_activated = cvir.button_press
-cvir.__outSF1.when_deactivated = cvir.button_press
-cvir.__outSF2.when_activated = cvir.button_release
+cvir.__outSF1.when_deactivated = cvir.button_release
+cvir.__outSF2.when_activated = cvir.button_press
 cvir.__outSF2.when_deactivated = cvir.button_release
 
 sys.exit(app.exec())

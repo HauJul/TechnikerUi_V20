@@ -66,7 +66,7 @@ def lock_start():
 
 def button_press():
     state_sf1 = __outSF1.value
-    state_sf2 =  __outSF2.value
+    state_sf2 = __outSF2.value
     print("Tastendruck erkannt")
     if state_sf2 and state_sf1:
         __inRESET.on()

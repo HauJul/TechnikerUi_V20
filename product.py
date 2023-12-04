@@ -2,7 +2,12 @@ import pandas as pd
 
 
 class Product:
-    df = pd.read_csv("Lists/Produktliste_V03.csv", delimiter=";", index_col=0)
+    file = open("Lists/Produktliste_V03.csv", 'r')
+    df = pd.read_csv(file, delimiter=";", index_col=0)
+    file.close()
+    file = open("Lists/Toolliste_V03.csv", 'r')
+    dftool = pd.read_csv(file, delimiter=";", index_col=0)
+    file.close()
 
     def __init__(self):
         self._artNo = 00000000
@@ -37,5 +42,4 @@ class Product:
     def get_toolname(self, step):
         toolno = self.df.at[self._artNo, "S" + str(step) + "_Tool"]
 
-        dftool = pd.read_csv("Lists/Toolliste_V03.csv", delimiter=";", index_col=0)
-        return dftool.at[toolno, "Tool"]
+        return self.dftool.at[toolno, "Tool"]
