@@ -44,16 +44,14 @@ def set_input(inzyk1, inzyk2, inzyk4):
 def set_cyc(cyc):
     if cyc == 1:
         set_input(True, False, False)
-        print("Schraubablauf 1")
     elif cyc == 2:
         set_input(False, True, False)
-        print("Schraubablauf 2")
     elif cyc == 3:
         set_input(True, True, False)
     elif cyc == 4:
         set_input(False, False, True)
     else:
-        print("Schraubablauf nicht bekannt")
+        print("Schraubablauf nicht bekannt")    #ToDo Fehlermeldung
 
 
 def release_start():
@@ -67,18 +65,14 @@ def lock_start():
 def button_press():
     state_sf1 = __outSF1.value
     state_sf2 = __outSF2.value
-    print("Tastendruck erkannt")
     if state_sf2 and state_sf1:
         __inRESET.on()
         __inSTART.off()
         __inLOESEN.off()
-        print("Reset ein")
     elif state_sf1 and not state_sf2:
         __inSTART.on()
-        print("Start ein")
     elif state_sf2 and not state_sf1:
         __inLOESEN.on()
-        print("Loesen ein")
 
 
 def button_release():
@@ -87,8 +81,6 @@ def button_release():
     if not state_sf1:
         __inSTART.off()
         __inRESET.off()
-        print("Start aus")
     if not state_sf2:
         __inLOESEN.off()
         __inRESET.off()
-        print("Loesen aus")

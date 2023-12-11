@@ -2,6 +2,7 @@
 import sys
 import pandas as pd
 from PySide6.QtWidgets import QApplication, QMainWindow, QDialog, QMessageBox, QDialogButtonBox, QTableWidgetItem
+from PySide6.QtCore import Qt
 
 from UI.ui_mainwindow import Ui_MainWindow
 from UI.ui_settingwindow import Ui_SettingWindow
@@ -21,9 +22,6 @@ class MainWindow(QMainWindow):
         super(MainWindow, self).__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-
-        self.ui.lbl_io.hide()
-        self.ui.lbl_nio.hide()
 
         self.ui.sb_artno.valueChanged.connect(self.product_change)
         self.ui.btn_skip.clicked.connect(next_step)
@@ -45,11 +43,11 @@ class MainWindow(QMainWindow):
         password_dialog.exec()
 
     def false_tool(self):
-        self.ui.lbl_false_tool.show()
+        self.ui.lbl_process_state.setText("Einsatz wechseln!")
         cvir.lock_start()
 
     def right_tool(self):
-        self.ui.lbl_false_tool.hide()
+        self.ui.lbl_process_state.setText("Schrauben starten!")
         cvir.release_start()
 
 
@@ -58,7 +56,6 @@ class SettingWindow(QMainWindow):
         super().__init__()
         self.ui = Ui_SettingWindow()
         self.ui.setupUi(self)
-        #self.setWindowFlags(WindowCloseButtonHint)
         self.read_all()
         self.ui.btn_close.clicked.connect(self.close)
         self.ui.btn_save.clicked.connect(self.save_all)
@@ -110,6 +107,7 @@ class SettingWindow(QMainWindow):
         self.save_csv_file("Lists/Produktliste_V03.csv", self.ui.tbl_prod)
         self.save_csv_file("Lists/Toolliste_V03.csv", self.ui.tbl_tool)
         self.save_csv_file("Lists/Programmliste_V03.csv", self.ui.tbl_prog)
+        product.read_csv()
 
     def delete_row(self):
         index = self.ui.tbl_prod.selectionModel().selectedIndexes()
@@ -160,6 +158,7 @@ class NewDialog(QDialog):
                 setting_window.ui.tbl_prog.insertRow(setting_window.ui.tbl_prog.rowCount())
                 setting_window.ui.tbl_prog.setVerticalHeaderItem(setting_window.ui.tbl_prog.rowCount()-1, new_item)
 
+
 def check_tool():
     if toolbox.get_tool() != product.get_toolno(cvir.step):
         window.false_tool()
@@ -178,13 +177,24 @@ def update_process(step):
     check_tool()
 
 
+def io_activated():
+    if cvir.__outIO.value:
+        window.ui.lbl_cvir_state.setText("In Ordnung")
+        next_step()
+    elif cvir.__outNIO.value:
+        window.ui.lbl_cvir_state.setText("Nicht in Ordnung")
+    elif cvir.__outZLAEUF.value:
+        window.ui.lbl_cvir_state.setText("")
+        window.ui.lbl_process_state.setText("Schrauber läuft!")
+
+
 def next_step():
-    window.ui.lbl_io.show()
     if cvir.step < product.get_steps():
         cvir.step = cvir.step + 1
     else:
         cvir.step = 1
     update_process(cvir.step)
+
 
 # Start Application
 app = QApplication(sys.argv)
@@ -198,10 +208,9 @@ toolbox.outBit0.when_activated = check_tool
 toolbox.outBit1.when_activated = check_tool
 toolbox.outBit2.when_activated = check_tool
 # CVIR - Statusmeldung
-cvir.__outIO.when_activated = next_step
-cvir.__outIO.when_deactivated = window.ui.lbl_io.hide
-cvir.__outNIO.when_activated = window.ui.lbl_nio.show
-cvir.__outNIO.when_deactivated = window.ui.lbl_nio.hide
+cvir.__outIO.when_activated = io_activated
+cvir.__outNIO.when_activated = io_activated
+cvir.__outZLAEUF.when_activated = io_activated
 # Bedienelement
 cvir.__outSF1.when_activated = cvir.button_press
 cvir.__outSF1.when_deactivated = cvir.button_release

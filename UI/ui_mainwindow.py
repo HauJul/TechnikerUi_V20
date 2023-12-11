@@ -15,15 +15,15 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QFrame, QGridLayout, QLabel,
-    QMainWindow, QPushButton, QSizePolicy, QSpacerItem,
-    QSpinBox, QStatusBar, QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QApplication, QGridLayout, QLabel, QMainWindow,
+    QPushButton, QSizePolicy, QSpacerItem, QSpinBox,
+    QStatusBar, QVBoxLayout, QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(800, 480)
+        MainWindow.resize(800, 549)
         font = QFont()
         font.setPointSize(13)
         MainWindow.setFont(font)
@@ -131,6 +131,12 @@ class Ui_MainWindow(object):
 
         self.gridLayout_2.addWidget(self.lbl_tool, 2, 0, 1, 1)
 
+        self.txt_process = QLabel(self.centralwidget)
+        self.txt_process.setObjectName(u"txt_process")
+        self.txt_process.setFont(font2)
+
+        self.gridLayout_2.addWidget(self.txt_process, 1, 1, 1, 1)
+
         self.txt_name = QLabel(self.centralwidget)
         self.txt_name.setObjectName(u"txt_name")
         self.txt_name.setFont(font2)
@@ -143,6 +149,12 @@ class Ui_MainWindow(object):
 
         self.gridLayout_2.addWidget(self.txt_tool, 2, 1, 1, 1)
 
+        self.lbl_process = QLabel(self.centralwidget)
+        self.lbl_process.setObjectName(u"lbl_process")
+        self.lbl_process.setFont(font2)
+
+        self.gridLayout_2.addWidget(self.lbl_process, 1, 0, 1, 1)
+
         self.lbl_name = QLabel(self.centralwidget)
         self.lbl_name.setObjectName(u"lbl_name")
         font3 = QFont()
@@ -153,83 +165,28 @@ class Ui_MainWindow(object):
 
         self.gridLayout_2.addWidget(self.lbl_name, 0, 0, 1, 1)
 
-        self.lbl_process = QLabel(self.centralwidget)
-        self.lbl_process.setObjectName(u"lbl_process")
-        self.lbl_process.setFont(font2)
-
-        self.gridLayout_2.addWidget(self.lbl_process, 1, 0, 1, 1)
-
-        self.txt_process = QLabel(self.centralwidget)
-        self.txt_process.setObjectName(u"txt_process")
-        self.txt_process.setFont(font2)
-
-        self.gridLayout_2.addWidget(self.txt_process, 1, 1, 1, 1)
-
 
         self.verticalLayout.addLayout(self.gridLayout_2)
+
+        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+
+        self.verticalLayout.addItem(self.verticalSpacer)
+
+        self.lbl_process_state = QLabel(self.centralwidget)
+        self.lbl_process_state.setObjectName(u"lbl_process_state")
+        self.lbl_process_state.setFont(font2)
+
+        self.verticalLayout.addWidget(self.lbl_process_state)
 
         self.verticalSpacer_3 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
         self.verticalLayout.addItem(self.verticalSpacer_3)
 
-        self.lbl_false_tool = QLabel(self.centralwidget)
-        self.lbl_false_tool.setObjectName(u"lbl_false_tool")
-        self.lbl_false_tool.setEnabled(True)
-        self.lbl_false_tool.setMinimumSize(QSize(500, 0))
-        font4 = QFont()
-        font4.setPointSize(25)
-        font4.setBold(True)
-        self.lbl_false_tool.setFont(font4)
-        self.lbl_false_tool.setStyleSheet(u"background-color: rgb(255, 170, 0);")
-        self.lbl_false_tool.setFrameShape(QFrame.NoFrame)
-        self.lbl_false_tool.setFrameShadow(QFrame.Plain)
-        self.lbl_false_tool.setLineWidth(4)
-        self.lbl_false_tool.setAlignment(Qt.AlignCenter)
+        self.lbl_cvir_state = QLabel(self.centralwidget)
+        self.lbl_cvir_state.setObjectName(u"lbl_cvir_state")
+        self.lbl_cvir_state.setFont(font2)
 
-        self.verticalLayout.addWidget(self.lbl_false_tool)
-
-        self.lbl_nio = QLabel(self.centralwidget)
-        self.lbl_nio.setObjectName(u"lbl_nio")
-        self.lbl_nio.setMinimumSize(QSize(100, 100))
-        self.lbl_nio.setMaximumSize(QSize(100, 100))
-        self.lbl_nio.setFont(font4)
-        self.lbl_nio.setStyleSheet(u"background-color: rgb(195, 0, 0);\n"
-"border-radius:20px;")
-        self.lbl_nio.setFrameShape(QFrame.Panel)
-        self.lbl_nio.setFrameShadow(QFrame.Raised)
-        self.lbl_nio.setPixmap(QPixmap(u"Qss/icons/original_svg/thumbs-down.svg"))
-        self.lbl_nio.setAlignment(Qt.AlignCenter)
-
-        self.verticalLayout.addWidget(self.lbl_nio)
-
-        self.lbl_io = QLabel(self.centralwidget)
-        self.lbl_io.setObjectName(u"lbl_io")
-        sizePolicy = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.lbl_io.sizePolicy().hasHeightForWidth())
-        self.lbl_io.setSizePolicy(sizePolicy)
-        self.lbl_io.setMinimumSize(QSize(100, 100))
-        self.lbl_io.setMaximumSize(QSize(100, 100))
-        font5 = QFont()
-        font5.setPointSize(25)
-        font5.setBold(True)
-        font5.setItalic(False)
-        self.lbl_io.setFont(font5)
-        self.lbl_io.setLayoutDirection(Qt.LeftToRight)
-        self.lbl_io.setStyleSheet(u"background-color: rgb(0, 207, 0);\n"
-"border-radius:20px;\n"
-"")
-        self.lbl_io.setFrameShape(QFrame.Panel)
-        self.lbl_io.setFrameShadow(QFrame.Raised)
-        self.lbl_io.setPixmap(QPixmap(u"Qss/icons/original_svg/thumbs-up.svg"))
-        self.lbl_io.setAlignment(Qt.AlignCenter)
-
-        self.verticalLayout.addWidget(self.lbl_io)
-
-        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
-
-        self.verticalLayout.addItem(self.verticalSpacer)
+        self.verticalLayout.addWidget(self.lbl_cvir_state)
 
 
         self.gridLayout.addLayout(self.verticalLayout, 1, 1, 1, 1)
@@ -251,13 +208,12 @@ class Ui_MainWindow(object):
         self.btn_exit.setText("")
         self.lbl_artno.setText(QCoreApplication.translate("MainWindow", u"Materialnummer:", None))
         self.lbl_tool.setText(QCoreApplication.translate("MainWindow", u"Bit Einsatz:", None))
+        self.txt_process.setText(QCoreApplication.translate("MainWindow", u"0 von 0", None))
         self.txt_name.setText(QCoreApplication.translate("MainWindow", u"Produkt X", None))
         self.txt_tool.setText(QCoreApplication.translate("MainWindow", u"Bit X", None))
-        self.lbl_name.setText(QCoreApplication.translate("MainWindow", u"Bezeichnung:", None))
         self.lbl_process.setText(QCoreApplication.translate("MainWindow", u"Schraubvorgang:", None))
-        self.txt_process.setText(QCoreApplication.translate("MainWindow", u"0 von 0", None))
-        self.lbl_false_tool.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" color:#ffffff;\">Schraubeinsatz wechseln!</span></p></body></html>", None))
-        self.lbl_nio.setText("")
-        self.lbl_io.setText("")
+        self.lbl_name.setText(QCoreApplication.translate("MainWindow", u"Bezeichnung:", None))
+        self.lbl_process_state.setText(QCoreApplication.translate("MainWindow", u"Einsatz wechseln!", None))
+        self.lbl_cvir_state.setText(QCoreApplication.translate("MainWindow", u"In Ordnung", None))
     # retranslateUi
 

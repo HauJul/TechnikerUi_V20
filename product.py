@@ -2,17 +2,19 @@ import pandas as pd
 
 
 class Product:
-    file = open("Lists/Produktliste_V03.csv", 'r')
-    df = pd.read_csv(file, delimiter=";", index_col=0)
-    file.close()
-    file = open("Lists/Toolliste_V03.csv", 'r')
-    dftool = pd.read_csv(file, delimiter=";", index_col=0)
-    file.close()
-
     def __init__(self):
         self._artNo = 00000000
         self._name = ""
         self._steps = 0
+        self.read_csv()
+
+    def read_csv(self):
+        file = open("Lists/Produktliste_V03.csv", 'r')
+        self.df = pd.read_csv(file, delimiter=";", index_col=0)
+        file.close()
+        file = open("Lists/Toolliste_V03.csv", 'r')
+        self.dftool = pd.read_csv(file, delimiter=";", index_col=0)
+        file.close()
 
     def set_art_no(self, value):
         self._artNo = value
