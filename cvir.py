@@ -62,14 +62,22 @@ class CVIR:
     def __button_press(self):
         state_sf1 = self.outSF1.value
         state_sf2 = self.outSF2.value
+        # Reset input
         if state_sf2 and state_sf1:
             self.inRESET.on()
             self.inSTART.off()
             self.inLOESEN.off()
+        # Start input
         elif state_sf1 and not state_sf2:
             self.inSTART.on()
+        #Release input
         elif state_sf2 and not state_sf1:
             self.inLOESEN.on()
+            self.inSTART.on()
+            #self.inZYK1.off()
+            #self.inZYK2.off()
+            #self.inZYK4.off()
+
 
     def __button_release(self):
         state_sf1 = self.outSF1.value
