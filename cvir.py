@@ -40,7 +40,7 @@ class CVIR:
 
     def set_cyc(self, cyc):
         scyc = format(cyc, "b").zfill(3)
-        if scyc[1] == "0":
+        if scyc[2] == "0":
             self.inZYK1.off()
         else:
             self.inZYK1.on()

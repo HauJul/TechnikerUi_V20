@@ -2,7 +2,6 @@ import pandas as pd
 from PySide6.QtWidgets import QMainWindow, QDialog, QMessageBox, QTableWidgetItem
 
 from UI.ui_settingwindow import Ui_SettingWindow
-from UI.ui_pwdialog import Ui_PasswordDialog
 from UI.ui_newdialog import Ui_NewDialog
 
 
@@ -116,21 +115,7 @@ class SettingWindow(QMainWindow):
             self.ui.tbl_prog.removeRow(index[0].row())
 
 
-class PasswordDialog(QDialog):
-    def __init__(self, setting_window):
-        super().__init__()
-        self.ui = Ui_PasswordDialog()
-        self.ui.setupUi(self)
-        self.ui.buttonBox.accepted.connect(self.handle_login)
-        self.setting_window = setting_window
 
-    # Update and show Setting Window if Password is valid
-    def handle_login(self):
-        if self.ui.txt_password.text() == '1000':
-            self.setting_window.read_all()
-            self.setting_window.show()
-        else:
-            QMessageBox.warning(self, 'Error', 'Falsches Servicepassword')
 
 
 class NewDialog(QDialog):
