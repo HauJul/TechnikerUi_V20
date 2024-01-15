@@ -22,7 +22,7 @@ if __name__ == "__main__":
     setting_window = SettingWindow(product)
     # Start MainWindow
     window = MainWindow(setting_window, product, toolbox, cvir)
-    window.show()
+    window.showFullScreen()
 
     # Execute Application
     sys.exit(app.exec())

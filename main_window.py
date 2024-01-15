@@ -64,6 +64,8 @@ class MainWindow(QMainWindow):
     # Update Process depending on product and step
     def update_process(self, step):
         self.ui.txt_process.setText(str(step) + " von " + str(self.product.get_steps()))
+        self.ui.txt_torque.setText(self.product.get_torque(step))
+        self.ui.txt_description.setText(self.product.get_progdescription(step))
         cyc = self.product.get_cyc(step)
         self.cvir.set_cyc(cyc)
         tool = self.product.get_toolname(step)

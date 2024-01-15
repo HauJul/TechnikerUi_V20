@@ -125,45 +125,71 @@ class Ui_MainWindow(object):
 
         self.gridLayout_2 = QGridLayout()
         self.gridLayout_2.setObjectName(u"gridLayout_2")
-        self.lbl_tool = QLabel(self.centralwidget)
-        self.lbl_tool.setObjectName(u"lbl_tool")
-        self.lbl_tool.setFont(font2)
+        self.txt_torque = QLabel(self.centralwidget)
+        self.txt_torque.setObjectName(u"txt_torque")
+        font3 = QFont()
+        font3.setPointSize(15)
+        self.txt_torque.setFont(font3)
 
-        self.gridLayout_2.addWidget(self.lbl_tool, 2, 0, 1, 1)
-
-        self.txt_process = QLabel(self.centralwidget)
-        self.txt_process.setObjectName(u"txt_process")
-        self.txt_process.setFont(font2)
-
-        self.gridLayout_2.addWidget(self.txt_process, 1, 1, 1, 1)
-
-        self.txt_name = QLabel(self.centralwidget)
-        self.txt_name.setObjectName(u"txt_name")
-        self.txt_name.setFont(font2)
-
-        self.gridLayout_2.addWidget(self.txt_name, 0, 1, 1, 1)
+        self.gridLayout_2.addWidget(self.txt_torque, 3, 1, 1, 1)
 
         self.txt_tool = QLabel(self.centralwidget)
         self.txt_tool.setObjectName(u"txt_tool")
-        self.txt_tool.setFont(font2)
+        self.txt_tool.setFont(font3)
 
         self.gridLayout_2.addWidget(self.txt_tool, 2, 1, 1, 1)
 
-        self.lbl_process = QLabel(self.centralwidget)
-        self.lbl_process.setObjectName(u"lbl_process")
-        self.lbl_process.setFont(font2)
+        self.lbl_tool = QLabel(self.centralwidget)
+        self.lbl_tool.setObjectName(u"lbl_tool")
+        self.lbl_tool.setFont(font3)
 
-        self.gridLayout_2.addWidget(self.lbl_process, 1, 0, 1, 1)
+        self.gridLayout_2.addWidget(self.lbl_tool, 2, 0, 1, 1)
 
         self.lbl_name = QLabel(self.centralwidget)
         self.lbl_name.setObjectName(u"lbl_name")
-        font3 = QFont()
-        font3.setPointSize(20)
-        font3.setBold(False)
-        font3.setItalic(False)
-        self.lbl_name.setFont(font3)
+        font4 = QFont()
+        font4.setPointSize(15)
+        font4.setBold(False)
+        font4.setItalic(False)
+        self.lbl_name.setFont(font4)
 
         self.gridLayout_2.addWidget(self.lbl_name, 0, 0, 1, 1)
+
+        self.lbl_process = QLabel(self.centralwidget)
+        self.lbl_process.setObjectName(u"lbl_process")
+        self.lbl_process.setFont(font3)
+
+        self.gridLayout_2.addWidget(self.lbl_process, 1, 0, 1, 1)
+
+        self.lbl_torque = QLabel(self.centralwidget)
+        self.lbl_torque.setObjectName(u"lbl_torque")
+        self.lbl_torque.setFont(font3)
+
+        self.gridLayout_2.addWidget(self.lbl_torque, 3, 0, 1, 1)
+
+        self.txt_name = QLabel(self.centralwidget)
+        self.txt_name.setObjectName(u"txt_name")
+        self.txt_name.setFont(font3)
+
+        self.gridLayout_2.addWidget(self.txt_name, 0, 1, 1, 1)
+
+        self.txt_process = QLabel(self.centralwidget)
+        self.txt_process.setObjectName(u"txt_process")
+        self.txt_process.setFont(font3)
+
+        self.gridLayout_2.addWidget(self.txt_process, 1, 1, 1, 1)
+
+        self.lbl_description = QLabel(self.centralwidget)
+        self.lbl_description.setObjectName(u"lbl_description")
+        self.lbl_description.setFont(font3)
+
+        self.gridLayout_2.addWidget(self.lbl_description, 4, 0, 1, 1)
+
+        self.txt_description = QLabel(self.centralwidget)
+        self.txt_description.setObjectName(u"txt_description")
+        self.txt_description.setFont(font3)
+
+        self.gridLayout_2.addWidget(self.txt_description, 4, 1, 1, 1)
 
 
         self.verticalLayout.addLayout(self.gridLayout_2)
@@ -188,6 +214,10 @@ class Ui_MainWindow(object):
 
         self.verticalLayout.addWidget(self.lbl_cvir_state)
 
+        self.verticalSpacer_4 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+
+        self.verticalLayout.addItem(self.verticalSpacer_4)
+
 
         self.gridLayout.addLayout(self.verticalLayout, 1, 1, 1, 1)
 
@@ -207,12 +237,16 @@ class Ui_MainWindow(object):
         self.btn_skip.setText("")
         self.btn_exit.setText("")
         self.lbl_artno.setText(QCoreApplication.translate("MainWindow", u"Materialnummer:", None))
-        self.lbl_tool.setText(QCoreApplication.translate("MainWindow", u"Bit Einsatz:", None))
-        self.txt_process.setText(QCoreApplication.translate("MainWindow", u"0 von 0", None))
-        self.txt_name.setText(QCoreApplication.translate("MainWindow", u"Produkt X", None))
+        self.txt_torque.setText(QCoreApplication.translate("MainWindow", u"x Nm", None))
         self.txt_tool.setText(QCoreApplication.translate("MainWindow", u"Bit X", None))
-        self.lbl_process.setText(QCoreApplication.translate("MainWindow", u"Schraubvorgang:", None))
+        self.lbl_tool.setText(QCoreApplication.translate("MainWindow", u"Bit Einsatz:", None))
         self.lbl_name.setText(QCoreApplication.translate("MainWindow", u"Bezeichnung:", None))
+        self.lbl_process.setText(QCoreApplication.translate("MainWindow", u"Schraubvorgang:", None))
+        self.lbl_torque.setText(QCoreApplication.translate("MainWindow", u"Drehmoment:", None))
+        self.txt_name.setText(QCoreApplication.translate("MainWindow", u"Produkt X", None))
+        self.txt_process.setText(QCoreApplication.translate("MainWindow", u"0 von 0", None))
+        self.lbl_description.setText(QCoreApplication.translate("MainWindow", u"Beschreibung:", None))
+        self.txt_description.setText(QCoreApplication.translate("MainWindow", u"AVP", None))
         self.lbl_process_state.setText(QCoreApplication.translate("MainWindow", u"Einsatz wechseln!", None))
         self.lbl_cvir_state.setText(QCoreApplication.translate("MainWindow", u"In Ordnung", None))
     # retranslateUi
