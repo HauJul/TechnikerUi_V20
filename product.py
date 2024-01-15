@@ -45,8 +45,8 @@ class Product:
             return False
 
     def get_cyc(self, step):
-        cycno = self.df_product.at[self._artNo, "S" + str(step) + "_Tool"]
-
+        cycno = self.df_product.at[self._artNo, "S" + str(step) + "_Prog"]
+        
         return self.df_prog.at[cycno, "CVIR Nr"]
 
     def get_toolno(self, step):

@@ -74,9 +74,6 @@ class CVIR:
         elif state_sf2 and not state_sf1:
             self.inLOESEN.on()
             self.inSTART.on()
-            #self.inZYK1.off()
-            #self.inZYK2.off()
-            #self.inZYK4.off()
 
 
     def __button_release(self):

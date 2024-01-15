@@ -31,6 +31,7 @@ class MainWindow(QMainWindow):
         self.cvir.outNIO.when_activated = self.show_cvir_state
         self.cvir.outNIO.when_deactivated = self.reset_nio
         self.cvir.outZLAEUF.when_activated = self.show_cvir_state
+        self.cvir.outZLAEUF.when_deactivated = self.show_cvir_state
 
     # React on change of product number
     def product_change(self):
@@ -63,14 +64,18 @@ class MainWindow(QMainWindow):
     
     # Update Process depending on product and step
     def update_process(self, step):
+        #Show information
         self.ui.txt_process.setText(str(step) + " von " + str(self.product.get_steps()))
         self.ui.txt_torque.setText(self.product.get_torque(step))
         self.ui.txt_description.setText(self.product.get_progdescription(step))
-        cyc = self.product.get_cyc(step)
-        self.cvir.set_cyc(cyc)
+
         tool = self.product.get_toolname(step)
         self.ui.txt_tool.setText(str(tool))
+        #Check if right Tool is selected
         self.check_tool()
+        #Set CVIR Programmm
+        cyc = self.product.get_cyc(step)
+        self.cvir.set_cyc(cyc)
 
     # Check if selected Tool fits to Product and Step
     # Show label and lock/release CVIR
@@ -95,8 +100,9 @@ class MainWindow(QMainWindow):
             self.ui.lbl_cvir_state.setText("Nicht in Ordnung")
             self.ui.lbl_process_state.setText("Fehler quittieren!")
         elif self.cvir.outZLAEUF.value:
+            self.ui.lbl_cvir_state.setText("Schrauber läuft!")
+        elif not self.cvir.outZLAEUF.value:
             self.ui.lbl_cvir_state.setText("")
-            self.ui.lbl_process_state.setText("Schrauber läuft!")
 
     def reset_nio(self):
         self.ui.lbl_process_state.setText("Schrauben wiederholen!")
@@ -113,6 +119,6 @@ class PasswordDialog(QDialog):
     def handle_login(self):
         if self.ui.txt_password.text() == '1000':
             self.setting_window.read_all()
-            self.setting_window.show()
+            self.setting_window.showFullScreen()
         else:
             QMessageBox.warning(self, 'Error', 'Falsches Servicepassword')
